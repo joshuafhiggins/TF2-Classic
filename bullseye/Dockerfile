@@ -1,14 +1,14 @@
 ###########################################################
-# Dockerfile that builds a TF2 Gameserver
+# Dockerfile that builds a TF2 Classic Gameserver
 ###########################################################
 FROM cm2network/steamcmd:root AS build_stage
 
-LABEL maintainer="walentinlamonos@gmail.com"
+LABEL maintainer="joshuafhiggins@gmail.com"
 
-ENV STEAMAPPID 232250
-ENV STEAMAPP tf
+ENV STEAMAPPID 244310
+ENV STEAMAPP tf2classic
 ENV STEAMAPPDIR "${HOMEDIR}/${STEAMAPP}-dedicated"
-ENV DLURL https://raw.githubusercontent.com/CM2Walki/TF2
+ENV DLURL https://raw.githubusercontent.com/higgy999/TF2-Classic
 
 RUN set -x \
 	# Add i386 architecture
@@ -64,6 +64,9 @@ USER ${USER}
 
 WORKDIR ${HOMEDIR}
 
+RUN wget https://github.com/tf2classic/TF2CDownloader/releases/latest/download/TF2CDownloaderLinux \
+	&& chmod +x ./TF2CDownloaderLinux 
+
 CMD ["bash", "entry.sh"]
 
 # Expose ports
@@ -71,10 +74,10 @@ EXPOSE 27015/tcp \
 	27015/udp \
 	27020/udp
 
-FROM bullseye-base AS bullseye-metamod
+# FROM bullseye-base AS bullseye-metamod
 
-ENV METAMOD_VERSION 1.11
+# ENV METAMOD_VERSION 1.11
 
-FROM bullseye-metamod AS bullseye-sourcemod
+# FROM bullseye-metamod AS bullseye-sourcemod
 
-ENV SOURCEMOD_VERSION 1.11
+# ENV SOURCEMOD_VERSION 1.11

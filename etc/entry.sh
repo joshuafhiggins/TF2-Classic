@@ -6,7 +6,7 @@ bash "${STEAMCMDDIR}/steamcmd.sh" +force_install_dir "${STEAMAPPDIR}" \
 				+app_update "${STEAMAPPID}" \
 				+quit
 
-${STEAMAPPDIR}/TF2CDownloaderLinux --install "${STEAMAPPDIR}"
+${HOMEDIR}/TF2CDownloaderLinux --install "${STEAMAPPDIR}"
 
 # # Are we in a metamod container and is the metamod folder missing?
 # if  [ ! -z "$METAMOD_VERSION" ] && [ ! -d "${STEAMAPPDIR}/${STEAMAPP}/addons/metamod" ]; then

@@ -23,6 +23,8 @@ RUN set -x \
 		libbz2-1.0:i386=1.0.8-4 \
 		libtinfo5:i386=6.2+20201114-2+deb11u1 \
 		libcurl3-gnutls:i386=7.74.0-1.3+deb11u7 \
+		python3 \
+		pyhton-is-python3 \
 	&& mkdir -p "${STEAMAPPDIR}" \
 	# Add entry script
 	&& wget "${DLURL}/master/etc/entry.sh" -O "${HOMEDIR}/entry.sh" \

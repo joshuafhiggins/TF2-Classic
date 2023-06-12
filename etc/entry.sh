@@ -22,7 +22,7 @@ bash "${STEAMCMDDIR}/steamcmd.sh" +force_install_dir "${STEAMAPPDIR}" \
 
 # Is the tf2classic directory present? if not then assume the game hasn't been downloaded and download it
 if [ ! -d "${STEAMAPPDIR}/${STEAMAPP}/" ]; then
-        wget -qO- https://wiki.tf2classic.com/kachemak/tf2classic-latest.zip
+        wget https://wiki.tf2classic.com/kachemak/tf2classic-latest.zip
         unzip "${HOMEDIR}/tf2classic-latest.zip" -d "${STEAMAPPDIR}/${STEAMAPP}/"
 fi
 

@@ -61,7 +61,7 @@ If you want to learn more about configuring a TF2 server check this [documentati
 
 # Image Variants:
 
-## `tf2classic:latest`
+## `tf2-classic:latest`
 This is the defacto image. If you are unsure about what your needs are, you probably want to use this one. It is a bare-minimum TF2 dedicated server containing no 3rd party plugins.<br/>
 
 # Contributors

@@ -23,8 +23,12 @@ RUN set -x \
 		libbz2-1.0:i386=1.0.8-4 \
 		libtinfo5:i386=6.2+20201114-2+deb11u1 \
 		libcurl3-gnutls:i386=7.74.0-1.3+deb11u7 \
-		python3 \
-		python-is-python3 \
+		unzip \
+		# python3 \
+		# pip \
+		# python-is-python3 \
+		# libxcb-xinerama0 \
+		# python3-tk \
 	&& mkdir -p "${STEAMAPPDIR}" \
 	# Add entry script
 	&& wget "${DLURL}/master/etc/entry.sh" -O "${HOMEDIR}/entry.sh" \
@@ -66,8 +70,8 @@ USER ${USER}
 
 WORKDIR ${HOMEDIR}
 
-RUN wget https://github.com/tf2classic/TF2CDownloader/releases/latest/download/TF2CDownloaderLinux \
-	&& chmod +x ./TF2CDownloaderLinux 
+# RUN wget https://github.com/tf2classic/TF2CDownloader/releases/latest/download/TF2CDownloaderLinux \
+# 	&& chmod +x ./TF2CDownloaderLinux 
 
 CMD ["bash", "entry.sh"]
 

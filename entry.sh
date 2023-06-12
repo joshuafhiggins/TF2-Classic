@@ -21,6 +21,22 @@ if [ ! -f "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg" ]; then
         sed -i -e 's/{{SERVER_HOSTNAME}}/'"${SRCDS_HOSTNAME}"'/g' "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg"
 fi
 
+cd "${STEAMAPPDIR}/bin"
+ln -s datacache_srv.so datacache.so
+ln -s dedicated_srv.so dedicated.so
+ln -s engine_srv.so engine.so
+ln -s materialsystem_srv.so materialsystem.so
+ln -s replay_srv.so replay.so
+ln -s scenefilecache_srv.so scenefilecache.so
+ln -s shaderapiempty_srv.so shaderapiempty.so
+ln -s studiorender_srv.so studiorender.so
+ln -s vphysics_srv.so vphysics.so
+ln -s soundemittersystem_srv.so soundemittersystem.so
+
+cd "${STEAMAPPDIR}/${STEAMAPP}/bin"
+rm server_srv.so
+ln -s server.so server_srv.so
+
 # Believe it or not, if you don't do this srcds_run shits itself
 cd "${STEAMAPPDIR}"
 

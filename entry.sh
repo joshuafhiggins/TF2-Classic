@@ -12,15 +12,6 @@ if [ ! -d "${STEAMAPPDIR}/${STEAMAPP}/" ]; then
         7z x "${HOMEDIR}/tf2classic-latest.zip" -o"${STEAMAPPDIR}/${STEAMAPP}/"
 fi
 
-# Is the config missing?
-if [ ! -f "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg" ]; then
-        # Download & extract the config
-        wget -qO- "${DLURL}/master/etc/cfg.tar.gz" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"
-
-        # Change hostname on first launch (you can comment this out if it has done its purpose)
-        sed -i -e 's/{{SERVER_HOSTNAME}}/'"${SRCDS_HOSTNAME}"'/g' "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg"
-fi
-
 cd "${STEAMAPPDIR}/bin"
 ln -s datacache_srv.so datacache.so
 ln -s dedicated_srv.so dedicated.so

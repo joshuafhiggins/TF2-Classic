@@ -1,6 +1,6 @@
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/litltoast/tf2-classic.svg)](https://hub.docker.com/r/litltoast/tf2-classic/) [![Docker Stars](https://img.shields.io/docker/stars/litltoast/tf2-classic.svg)](https://hub.docker.com/r/litltoast/tf2-classic/) [![Docker Pulls](https://img.shields.io/docker/pulls/litltoast/tf2-classic.svg)](https://hub.docker.com/r/litltoast/tf2-classic/) [![](https://img.shields.io/docker/image-size/litltoast/tf2-classic)](https://microbadger.com/images/litltoast/tf2-classic)
 # Supported tags and respective `Dockerfile` links
--	[`base`, `latest` (*bullseye/Dockerfile*)](https://github.com/higgy999/TF2-Classic/blob/master/bullseye/Dockerfile)
+-	[`base`, `latest` (*Dockerfile*)](https://github.com/higgy999/TF2-Classic/blob/master/Dockerfile)
 
 # How to use this image
 ## Hosting a simple game server

@@ -25,8 +25,6 @@ RUN set -x \
 		libcurl3-gnutls:i386=7.74.0-1.3+deb11u7 \
 		p7zip-full \
 	&& mkdir -p "${STEAMAPPDIR}" \
-	# Add entry script
-	# && wget "${DLURL}/master/etc/entry.sh" -O "${HOMEDIR}/entry.sh" \
 	# Create autoupdate config
 	&& { \
 		echo '@ShutdownOnFailedCommand 1'; \

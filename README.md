@@ -7,19 +7,19 @@
 
 Running on the *host* interface (recommended):<br/>
 ```console
-$ docker run -d -it --net=host --name=tf2classic-dedicated -e SRCDS_TOKEN={YOURTOKEN} litltoast/tf2classic
+$ docker run -d -it --net=host --name=tf2classic-dedicated -e SRCDS_TOKEN={YOURTOKEN} litltoast/tf2-classic
 ```
 
 Running using a bind mount for data persistence on container recreation:
 ```console
 $ mkdir -p $(pwd)/tf2-data
 $ chmod 777 $(pwd)/tf2-data # Makes sure the directory is writeable by the unprivileged container user
-$ docker run -d -it --net=host -v $(pwd)/tf2-data:/home/steam/tf2classic-dedicated/ --name=tf2classic-dedicated -e SRCDS_TOKEN={YOURTOKEN} litltoast/tf2classic
+$ docker run -d -it --net=host -v $(pwd)/tf2-data:/home/steam/tf2classic-dedicated/ --name=tf2classic-dedicated -e SRCDS_TOKEN={YOURTOKEN} litltoast/tf2-classic
 ```
 
 Running multiple instances (increment SRCDS_PORT and SRCDS_TV_PORT):
 ```console
-$ docker run -d -it --net=host --name=tf2classic-dedicated2 -e SRCDS_PORT=27016 -e SRCDS_TV_PORT=27021 -e SRCDS_TOKEN={YOURTOKEN} litltoast/tf2classic
+$ docker run -d -it --net=host --name=tf2classic-dedicated2 -e SRCDS_PORT=27016 -e SRCDS_TV_PORT=27021 -e SRCDS_TOKEN={YOURTOKEN} litltoast/tf2-classic
 ```
 
 `SRCDS_TOKEN` **is required to be listed & reachable. Generate one here using AppID `440`:**  

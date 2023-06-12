@@ -6,24 +6,10 @@ bash "${STEAMCMDDIR}/steamcmd.sh" +force_install_dir "${STEAMAPPDIR}" \
 				+app_update "${STEAMAPPID}" \
 				+quit
 
-# ${HOMEDIR}/TF2CDownloaderLinux --install ${STEAMAPPDIR}
-
-# # Are we in a metamod container and is the metamod folder missing?
-# if  [ ! -z "$METAMOD_VERSION" ] && [ ! -d "${STEAMAPPDIR}/${STEAMAPP}/addons/metamod" ]; then
-#         LATESTMM=$(wget -qO- https://mms.alliedmods.net/mmsdrop/"${METAMOD_VERSION}"/mmsource-latest-linux)
-#         wget -qO- https://mms.alliedmods.net/mmsdrop/"${METAMOD_VERSION}"/"${LATESTMM}" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"
-# fi
-
-# # Are we in a sourcemod container and is the sourcemod folder missing?
-# if  [ ! -z "$SOURCEMOD_VERSION" ] && [ ! -d "${STEAMAPPDIR}/${STEAMAPP}/addons/sourcemod" ]; then
-#         LATESTSM=$(wget -qO- https://sm.alliedmods.net/smdrop/"${SOURCEMOD_VERSION}"/sourcemod-latest-linux)
-#         wget -qO- https://sm.alliedmods.net/smdrop/"${SOURCEMOD_VERSION}"/"${LATESTSM}" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"
-# fi
-
 # Is the tf2classic directory present? if not then assume the game hasn't been downloaded and download it
 if [ ! -d "${STEAMAPPDIR}/${STEAMAPP}/" ]; then
         wget https://wiki.tf2classic.com/kachemak/tf2classic-latest.zip
-        unzip "${HOMEDIR}/tf2classic-latest.zip" -d "${STEAMAPPDIR}/${STEAMAPP}/"
+        7z e "${HOMEDIR}/tf2classic-latest.zip" -o "${STEAMAPPDIR}/${STEAMAPP}/"
 fi
 
 # Is the config missing?

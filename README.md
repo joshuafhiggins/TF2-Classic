@@ -1,6 +1,6 @@
 [![Docker Stars](https://img.shields.io/docker/stars/litltoast/tf2-classic.svg)](https://hub.docker.com/r/litltoast/tf2-classic/) [![Docker Pulls](https://img.shields.io/docker/pulls/litltoast/tf2-classic.svg)](https://hub.docker.com/r/litltoast/tf2-classic/) [![](https://img.shields.io/docker/image-size/litltoast/tf2-classic)](https://microbadger.com/images/litltoast/tf2-classic)
 # Supported tags and respective `Dockerfile` links
--	[`base`, `latest` (*Dockerfile*)](https://github.com/higgy999/TF2-Classic/blob/master/Dockerfile)
+-	[`base`, `latest` (*Dockerfile*)](https://github.com/joshuafhiggins/TF2-Classic/blob/master/Dockerfile)
 
 # How to use this image
 ## Hosting a simple game server
@@ -64,4 +64,4 @@ If you want to learn more about configuring a TF2 server check this [documentati
 This is the only image
 
 # Contributors
-[![Contributors Display](https://badges.pufler.dev/contributors/higgy999/TF2-Classic?size=50&padding=5&bots=false)](https://github.com/higgy999/TF2-Classic/graphs/contributors)
+[![Contributors Display](https://badges.pufler.dev/contributors/joshuafhiggins/TF2-Classic?size=50&padding=5&bots=false)](https://github.com/joshuafhiggins/TF2-Classic/graphs/contributors)

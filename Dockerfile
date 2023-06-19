@@ -8,7 +8,6 @@ LABEL maintainer="joshuafhiggins@gmail.com"
 ENV STEAMAPPID 244310
 ENV STEAMAPP tf2classic
 ENV STEAMAPPDIR "${HOMEDIR}/${STEAMAPP}-dedicated"
-ENV DLURL https://raw.githubusercontent.com/higgy999/TF2-Classic
 
 RUN set -x \
 	# Add i386 architecture

@@ -28,7 +28,6 @@ $ docker run -d -it --net=host --name=tf2classic-2 -e SRCDS_PORT=27016 -e SRCDS_
 [https://steamcommunity.com/dev/apikey](https://steamcommunity.com/dev/apikey)<br/>
 
 **It's also recommended to use "--cpuset-cpus=" to limit the game server to a specific core & thread.**<br/>
-**The container will automatically update the game on startup, so if there is a game update just restart the container.**
 
 # Configuration
 ## Environment Variables

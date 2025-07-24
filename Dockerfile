@@ -1,74 +1,80 @@
-###########################################################
-# Dockerfile that builds a TF2 Classic Gameserver
-###########################################################
-FROM cm2network/steamcmd:root AS build_stage
+# 1. Use a modern OS base with the correct GLIBC
+FROM ubuntu:24.04
 
-LABEL maintainer="joshuafhiggins@gmail.com"
+ENV DOCKER_DEFAULT_NETWORK=host
 
-ENV STEAMAPPID 244310
-ENV STEAMAPP tf2classic
-ENV STEAMAPPDIR "${HOMEDIR}/${STEAMAPP}-dedicated"
+LABEL maintainer="contact@mclab.tf"
 
-RUN set -x \
-	# Add i386 architecture
-	&& dpkg --add-architecture i386 \
-	# Install, update & upgrade packages
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends --no-install-suggests \
-		wget=1.21-1+deb11u1 \
-		ca-certificates=20210119 \
-		lib32z1=1:1.2.11.dfsg-2+deb11u2 \
-		libncurses5:i386=6.2+20201114-2+deb11u1 \
-		libbz2-1.0:i386=1.0.8-4 \
-		libtinfo5:i386=6.2+20201114-2+deb11u1 \
-		libcurl3-gnutls:i386=7.74.0-1.3+deb11u7 \
-		p7zip-full \
-	&& mkdir -p "${STEAMAPPDIR}" \
-	# Create autoupdate config
-	&& { \
-		echo '@ShutdownOnFailedCommand 1'; \
-		echo '@NoPromptForPassword 1'; \
-		echo 'force_install_dir '"${STEAMAPPDIR}"''; \
-		echo 'login anonymous'; \
-		echo 'app_update '"${STEAMAPPID}"''; \
-		echo 'quit'; \
-	   } > "${HOMEDIR}/${STEAMAPP}_update.txt" \
-	# && chmod +x "${HOMEDIR}/entry.sh" \
-	&& chown -R "${USER}:${USER}" "${STEAMAPPDIR}" "${HOMEDIR}/${STEAMAPP}_update.txt" \
-	# Clean up
-	&& rm -rf /var/lib/apt/lists/*
+# 2. Set all necessary environment variables
+ENV USER="steam"
+ENV HOMEDIR="/home/${USER}"
+ENV STEAMCMDDIR="${HOMEDIR}/steamcmd"
+ENV STEAMAPP="tf2classic"
+ENV STEAMAPPID="244310"
+ENV STEAMAPPDIR="${HOMEDIR}/${STEAMAPP}-dedicated"
+ENV SRCDS_FPSMAX="300"
+ENV SRCDS_TICKRATE="66"
+ENV SRCDS_PORT="27015"
+ENV SRCDS_TV_PORT="27020"
+ENV SRCDS_NET_PUBLIC_ADDRESS="0"
+ENV SRCDS_IP="0"
+ENV SRCDS_MAXPLAYERS="16"
+ENV SRCDS_TOKEN="0"
+ENV SRCDS_RCONPW="changeme"
+ENV SRCDS_PW="changeme"
+ENV SRCDS_STARTMAP="ctf_2fort"
+ENV SRCDS_REGION="3"
+ENV SRCDS_HOSTNAME="New TF2Classic Server"
 
-COPY entry.sh ${HOMEDIR}
-RUN chmod +x "${HOMEDIR}/entry.sh" \
-	&& chown -R "${USER}:${USER}" "${HOMEDIR}/entry.sh"
+# 3. Set up the system and install all dependencies
+RUN dpkg --add-architecture i386 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       wget \
+       ca-certificates \
+       curl \
+       p7zip-full \
+       aria2 \
+       lib32gcc-s1 \
+       lib32stdc++6 \
+       zlib1g:i386 \
+       libncurses6:i386 \
+       libtinfo6:i386 \
+       libbz2-1.0:i386 \
+       libsdl2-2.0-0:i386 \
+       libcurl4:i386 \
+    && rm -rf /var/lib/apt/lists/*
 
-FROM build_stage AS bullseye-base
+# 4. Create the user and directories
+RUN useradd -m --shell /bin/bash ${USER} \
+    && mkdir -p ${STEAMCMDDIR} ${STEAMAPPDIR} \
+    && chown -R ${USER}:${USER} ${HOMEDIR}
 
-ENV SRCDS_FPSMAX=300 \
-	SRCDS_TICKRATE=66 \
-	SRCDS_PORT=27015 \
-	SRCDS_TV_PORT=27020 \
-        SRCDS_NET_PUBLIC_ADDRESS="0" \
-        SRCDS_IP="0" \
-	SRCDS_MAXPLAYERS=16 \
-	SRCDS_TOKEN=0 \
-	SRCDS_RCONPW="changeme" \
-	SRCDS_PW="changeme" \
-	SRCDS_STARTMAP="ctf_2fort" \
-	SRCDS_REGION=3 \
-        SRCDS_HOSTNAME="New \"${STEAMAPP}\" Server" \
-        SRCDS_WORKSHOP_START_MAP=0 \
-        SRCDS_HOST_WORKSHOP_COLLECTION=0 \
-        SRCDS_WORKSHOP_AUTHKEY=""
-
-# Switch to user
+# 5. Switch to non-root user
 USER ${USER}
-
 WORKDIR ${HOMEDIR}
 
-CMD ["bash", "entry.sh"]
+# 6. Download and install SteamCMD
+RUN curl -fsSL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar xvzf - -C ${STEAMCMDDIR}
 
-# Expose ports
-EXPOSE 27015/tcp \
-	27015/udp \
-	27020/udp
+# 7. Create the update script for the game
+RUN { \
+    echo '@ShutdownOnFailedCommand 1'; \
+    echo '@NoPromptForPassword 1'; \
+    echo 'force_install_dir '"${STEAMAPPDIR}"''; \
+    echo 'login anonymous'; \
+    echo 'app_update '"${STEAMAPPID}"''; \
+    echo 'quit'; \
+    } > "${HOMEDIR}/${STEAMAPP}_update.txt"
+
+# 8. Copy the entry script and make it executable
+COPY --chown=steam:steam entry.sh .
+RUN chmod +x entry.sh
+
+# 9. Expose the server ports
+EXPOSE ${SRCDS_PORT}/tcp
+EXPOSE ${SRCDS_PORT}/udp
+EXPOSE ${SRCDS_TV_PORT}/udp
+
+# 10. Set the container startup command
+CMD ["./entry.sh"]

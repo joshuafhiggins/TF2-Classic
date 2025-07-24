@@ -20,6 +20,14 @@ ENV SRCDS_STARTMAP="ctf_2fort"
 ENV SRCDS_HOSTNAME="New TF Server"
 ENV SRCDS_WORKSHOP_AUTHKEY=""
 
+# Script Var
+ENV USER="steam"
+ENV HOMEDIR="/home/steam"
+ENV STEAMCMDDIR="/home/steam/steamcmd"
+ENV STEAMAPPID="244310"
+ENV STEAMAPP="tf2classic"
+ENV STEAMAPPDIR="/home/steam/tf2classic-dedicated"
+
 # 3. Set up the system and install all dependencies
 RUN dpkg --add-architecture i386 \
     && apt-get update \
@@ -57,7 +65,7 @@ RUN { \
     echo '@NoPromptForPassword 1'; \
     echo 'force_install_dir '"${STEAMAPPDIR}"''; \
     echo 'login anonymous'; \
-    echo 'app_update '"${STEAMAPPID}"''; \
+    echo 'app_update '"${STEAMAPPID}"'' -beta previous2021; \
     echo 'quit'; \
     } > "${HOMEDIR}/${STEAMAPP}_update.txt"
 

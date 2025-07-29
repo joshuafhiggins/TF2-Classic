@@ -3,7 +3,7 @@ mkdir -p "${STEAMAPPDIR}" || true
 
 bash "${STEAMCMDDIR}/steamcmd.sh" +force_install_dir "${STEAMAPPDIR}" \
 				+login anonymous \
-				+app_update "${STEAMAPPID}" \
+				+app_update "${STEAMAPPID}" -beta previous2021 \
 				+quit
 
 # Is the tf2classic directory present? if not then assume the game hasn't been downloaded and download it

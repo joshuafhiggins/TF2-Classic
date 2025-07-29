@@ -9,13 +9,6 @@
 - **Added:**  
     `FROM ubuntu:24.04`
 
-### Updated Maintainer Information
-
-- **Removed:**  
-    `LABEL maintainer="joshuafhiggins@gmail.com"`
-- **Added:**  
-    `LABEL maintainer="contact@mclab.tf"`
-
 ### Added New Environment Variable
 
 - **Added:**  

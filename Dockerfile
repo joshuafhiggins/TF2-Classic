@@ -3,7 +3,7 @@ FROM ubuntu:24.04
 
 ENV DOCKER_DEFAULT_NETWORK=host
 
-LABEL maintainer="contact@mclab.tf"
+LABEL maintainer="joshuafhiggins@abunchofknowitalls.com"
 
 # 2. Set all necessary environment variables
 ENV SRCDS_TOKEN="changeme" 
